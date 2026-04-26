@@ -6,7 +6,7 @@ require('dotenv').config();
 const app = express();
 
 const corsOptions = {
-  origin: "https://college-portal-two-alpha.vercel.app",
+  origin: "https://college-connect-portal.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true
 };
