@@ -60,7 +60,7 @@ const Home = () => {
       {/* Footer */}
       <footer className="landing-footer">
         <p>&copy; 2026 CampusConnect Portal. All rights reserved.</p>
-        <p className="designer-tag">Designed by <strong>PEDDI RAYUDU</strong></p>
+        <p className="designer-tag">Designed by <strong>BHUKYA KAIRAM</strong></p>
       </footer>
 
       {/* Login Options Modal */}
