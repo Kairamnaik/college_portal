@@ -5,113 +5,36 @@ require('dotenv').config();
 
 const app = express();
 
-// ✅ CORS Configuration
 const corsOptions = {
   origin: "https://college-portal-two-alpha.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true
 };
 
+// Middleware
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); 
 app.use(express.json());
 
-// ✅ Health check route (VERY IMPORTANT for deployment)
-app.get("/", (req, res) => {
-  res.send("API is running");
-});
-
-// ✅ Load Routes
+// Load Routes
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const teacherRoutes = require('./routes/teacherRoutes');
 const studentRoutes = require('./routes/studentRoutes');
 
-// ✅ Mount Routes
+// Mount Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/teacher', teacherRoutes);
 app.use('/api/student', studentRoutes);
 
-// ✅ Global Error Handler (prevents silent crashes)
-app.use((err, req, res, next) => {
-  console.error("Global Error:", err.stack);
-  res.status(500).json({ error: "Internal Server Error" });
-});
-
-// ✅ Start server ONLY after DB connects
-const PORT = process.env.PORT || 5000;
-
+// Database Connection (MongoDB Atlas)
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log('MongoDB connected successfully');
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch(err => console.log('Database connection error:', err));
 
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-
-  })
-  .catch(err => {
-    console.error('Database connection error:', err);
-    process.exit(1); // stop app if DB fails
-  });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const express = require('express');
-// const mongoose = require('mongoose');
-// const cors = require('cors');
-// require('dotenv').config();
-
-// const app = express();
-
-// const corsOptions = {
-//   origin: "https://college-portal-two-alpha.vercel.app",
-//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-//   credentials: true
-// };
-
-// // Middleware
-// app.use(cors(corsOptions));
-// app.options("*", cors(corsOptions)); 
-// app.use(express.json());
-
-// // Load Routes
-// const authRoutes = require('./routes/authRoutes');
-// const adminRoutes = require('./routes/adminRoutes');
-// const teacherRoutes = require('./routes/teacherRoutes');
-// const studentRoutes = require('./routes/studentRoutes');
-
-// // Mount Routes
-// app.use('/api/auth', authRoutes);
-// app.use('/api/admin', adminRoutes);
-// app.use('/api/teacher', teacherRoutes);
-// app.use('/api/student', studentRoutes);
-
-// // Database Connection (MongoDB Atlas)
-// mongoose.connect(process.env.MONGODB_URI)
-//   .then(() => console.log('MongoDB connected successfully'))
-//   .catch(err => console.log('Database connection error:', err));
-
-// // Start Server
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
+// Start Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
