@@ -1,4 +1,4 @@
-Deployed Project Link:rayudu-collegeportal.vercel.app
+Deployed Project Link: https://college-connect-portal.vercel.app
 
 Sample Credentials:
 
@@ -11,7 +11,7 @@ gmail:teacher1@gmail.com
 password:teacher123
 
 Student:
-gmail:rayudu@gmail.com
+gmail:kairam@gmail.com
 password:kairam
 
 
