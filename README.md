@@ -12,7 +12,7 @@ password:teacher123
 
 Student:
 gmail:rayudu@gmail.com
-password:rayudu
+password:kairam
 
 
 
